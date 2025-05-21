@@ -7,69 +7,77 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      background: #1e1e2f;
+      color: #fff;
       margin: 0;
-      padding: 1rem;
-      background-color: #f0f0f0;
+      padding: 20px;
     }
     h1 {
       text-align: center;
+      margin-bottom: 20px;
     }
-    .controls {
+    .filters {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
       justify-content: center;
-      margin-bottom: 1rem;
+      gap: 10px;
+      margin-bottom: 20px;
     }
-    select, input[type="search"] {
-      padding: 0.5rem;
+    select, input[type="text"] {
+      padding: 8px;
+      border-radius: 4px;
+      border: none;
       font-size: 1rem;
     }
     .card-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
+      gap: 20px;
     }
     .card {
-      background: white;
+      background: #2e2e3f;
       border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      padding: 15px;
+      transition: transform 0.2s;
       cursor: pointer;
-      transition: background 0.3s ease;
     }
     .card:hover {
-      background: #f9f9f9;
+      transform: scale(1.02);
     }
-    .rarity {
+    .card h3 {
+      margin-top: 0;
+      color: #ffd700;
+    }
+    .card .rarity {
       font-weight: bold;
-      padding: 0.25rem 0.5rem;
+      padding: 2px 8px;
       border-radius: 4px;
-      display: inline-block;
-      color: white;
+      font-size: 0.9rem;
+      margin-left: 5px;
     }
-    .rarity.Red { background-color: #dc2626; }
-    .rarity.Orange { background-color: #f97316; }
-    .rarity.Purple { background-color: #8b5cf6; }
-    .rarity.Blue { background-color: #3b82f6; }
-    .rarity.Green { background-color: #10b981; }
-    .details {
-      margin-top: 0.5rem;
+    .card .details {
       display: none;
+      margin-top: 10px;
     }
-    .card.expanded .details {
+    .card.active .details {
       display: block;
     }
-    .loot-list {
-      margin: 0;
-      padding-left: 1rem;
+    .rarity-Red { background: #dc2626; color: white; }
+    .rarity-Orange { background: #f97316; color: white; }
+    .rarity-Purple { background: #8b5cf6; color: white; }
+    .rarity-Blue { background: #3b82f6; color: white; }
+    .rarity-Green { background: #10b981; color: white; }
+    img {
+      width: 100%;
+      border-radius: 6px;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>Keycard Database</h1>
-  <div class="controls">
-    <input type="search" id="search" placeholder="Search keycards..." />
+  <h1>Delta Force Keycard Database</h1>
+  <div class="filters">
+    <input type="text" id="search" placeholder="Search keycards..." />
     <select id="mapFilter">
       <option value="">All Maps</option>
       <option>Zero Dam</option>
@@ -101,8 +109,9 @@
           "1 drawer",
           "2 large safes",
           "1 computer",
-          "Additional loot on floors, tables, and shelves"
-        ]
+          "Loot on floors, tables, and shelves"
+        ],
+        image: ""
       },
       {
         name: "Substation Tech Room",
@@ -114,19 +123,31 @@
           "2 servers",
           "1 large safe",
           "Loot on desks"
-        ]
+        ],
+        image: ""
       },
       {
-        name: "West Wing Control Room",
-        map: "Zero Dam",
-        rarity: "Purple",
-        location: "West Wing, northern side",
+        name: "King's Suite",
+        map: "Layali Grove",
+        rarity: "Red",
+        location: "Top floor of main building in Layali Grove",
         loot: [
-          "1 piece of clothing",
-          "2 servers",
-          "1 computer",
-          "Loot on the desk"
-        ]
+          "3 large safes",
+          "2 briefcases",
+          "Weapons and clothing"
+        ],
+        image: ""
+      },
+      {
+        name: "Underground Vault Storage",
+        map: "Brakkesh",
+        rarity: "Red",
+        location: "Underground vault beneath the museum",
+        loot: [
+          "Multiple large safes",
+          "Rare containers and server racks"
+        ],
+        image: ""
       },
       {
         name: "CEO Office Reception Room",
@@ -135,61 +156,55 @@
         location: "Top of the middle building in the core area",
         loot: [
           "1 large weapon crate",
-          "2 pieces of clothing",
+          "2 clothing pieces",
           "2 large safes",
-          "Potential to loot the Heart of Africa"
-        ]
-      },
-      {
-        name: "Test Range Data Center",
-        map: "Space City",
-        rarity: "Orange",
-        location: "Level two of the Test Range",
-        loot: [
-          "1 large weapon crate",
-          "2 servers",
-          "1 storage box"
-        ]
+          "Chance to loot Heart of Africa"
+        ],
+        image: ""
       }
+      // Add more keycards here
     ];
 
-    const cardList = document.getElementById('cardList');
-    const search = document.getElementById('search');
-    const mapFilter = document.getElementById('mapFilter');
-    const rarityFilter = document.getElementById('rarityFilter');
+    const cardList = document.getElementById("cardList");
+    const searchInput = document.getElementById("search");
+    const mapFilter = document.getElementById("mapFilter");
+    const rarityFilter = document.getElementById("rarityFilter");
 
     function renderCards() {
-      cardList.innerHTML = '';
-      const query = search.value.toLowerCase();
+      const search = searchInput.value.toLowerCase();
       const map = mapFilter.value;
       const rarity = rarityFilter.value;
 
-      keycards.filter(k => {
-        return (
-          (!query || k.name.toLowerCase().includes(query)) &&
-          (!map || k.map === map) &&
-          (!rarity || k.rarity === rarity)
-        );
-      }).forEach(k => {
-        const div = document.createElement('div');
-        div.className = 'card';
+      cardList.innerHTML = "";
+      keycards.forEach(card => {
+        if (
+          (map && card.map !== map) ||
+          (rarity && card.rarity !== rarity) ||
+          (!card.name.toLowerCase().includes(search))
+        ) return;
+
+        const div = document.createElement("div");
+        div.className = "card";
         div.innerHTML = `
-          <div><strong>${k.name}</strong></div>
-          <div>${k.map} - <span class="rarity ${k.rarity}">${k.rarity}</span></div>
+          <h3>${card.name}<span class="rarity rarity-${card.rarity}">${card.rarity}</span></h3>
+          <p><strong>Map:</strong> ${card.map}</p>
           <div class="details">
-            <p><strong>Location:</strong> ${k.location}</p>
+            <p><strong>Location:</strong> ${card.location}</p>
             <p><strong>Loot:</strong></p>
-            <ul class="loot-list">${k.loot.map(l => `<li>${l}</li>`).join('')}</ul>
+            <ul>${card.loot.map(i => `<li>${i}</li>`).join("")}</ul>
+            ${card.image ? `<img src="${card.image}" alt="${card.name}" />` : ""}
           </div>
         `;
-        div.onclick = () => div.classList.toggle('expanded');
+        div.addEventListener("click", () => {
+          div.classList.toggle("active");
+        });
         cardList.appendChild(div);
       });
     }
 
-    search.oninput = renderCards;
-    mapFilter.onchange = renderCards;
-    rarityFilter.onchange = renderCards;
+    searchInput.addEventListener("input", renderCards);
+    mapFilter.addEventListener("change", renderCards);
+    rarityFilter.addEventListener("change", renderCards);
 
     renderCards();
   </script>
