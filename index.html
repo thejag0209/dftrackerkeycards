@@ -3,208 +3,212 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Keycard Database</title>
+  <title>Keycards</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #1e1e2f;
-      color: #fff;
       margin: 0;
-      padding: 20px;
+      font-family: Arial, sans-serif;
+      background-color: #f24444;
+      color: #333;
     }
-    h1 {
+    header {
+      background-color: #b91c1c;
+      color: white;
+      padding: 1rem;
       text-align: center;
-      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: bold;
     }
-    .filters {
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .controls {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin-bottom: 20px;
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
-    select, input[type="text"] {
-      padding: 8px;
-      border-radius: 4px;
-      border: none;
+    .controls input, .controls select {
+      padding: 0.5rem;
       font-size: 1rem;
     }
-    .card-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-    }
     .card {
-      background: #2e2e3f;
+      background: #fee2e2;
+      border: 2px solid #fca5a5;
       border-radius: 8px;
-      padding: 15px;
-      transition: transform 0.2s;
+      margin-bottom: 1rem;
       cursor: pointer;
     }
-    .card:hover {
-      transform: scale(1.02);
+    .card-header {
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .card h3 {
-      margin-top: 0;
-      color: #ffd700;
-    }
-    .card .rarity {
+    .card-title {
       font-weight: bold;
-      padding: 2px 8px;
+    }
+    .rarity {
+      padding: 0.2rem 0.6rem;
       border-radius: 4px;
-      font-size: 0.9rem;
-      margin-left: 5px;
+      font-size: 0.8rem;
+      color: white;
+      text-transform: uppercase;
     }
-    .card .details {
+    .rarity.red { background-color: #dc2626; }
+    .rarity.orange { background-color: #ea580c; }
+    .rarity.purple { background-color: #9333ea; }
+    .rarity.blue { background-color: #3b82f6; }
+    .rarity.green { background-color: #16a34a; }
+    .card-details {
       display: none;
-      margin-top: 10px;
+      padding: 1rem;
+      background: #fef2f2;
+      border-top: 1px solid #fca5a5;
     }
-    .card.active .details {
+    .card.open .card-details {
       display: block;
-    }
-    .rarity-Red { background: #dc2626; color: white; }
-    .rarity-Orange { background: #f97316; color: white; }
-    .rarity-Purple { background: #8b5cf6; color: white; }
-    .rarity-Blue { background: #3b82f6; color: white; }
-    .rarity-Green { background: #10b981; color: white; }
-    img {
-      width: 100%;
-      border-radius: 6px;
-      margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <h1>Delta Force Keycard Database</h1>
-  <div class="filters">
-    <input type="text" id="search" placeholder="Search keycards..." />
-    <select id="mapFilter">
-      <option value="">All Maps</option>
-      <option>Zero Dam</option>
-      <option>Layali Grove</option>
-      <option>Brakkesh</option>
-      <option>Space City</option>
-    </select>
-    <select id="rarityFilter">
-      <option value="">All Rarities</option>
-      <option>Red</option>
-      <option>Orange</option>
-      <option>Purple</option>
-      <option>Blue</option>
-      <option>Green</option>
-    </select>
+  <header>Keycards</header>
+  <div class="container">
+    <div class="controls">
+      <input type="text" id="search" placeholder="Search keycards...">
+      <select id="filterMap">
+        <option value="">All Maps</option>
+        <option>Zero Dam</option>
+        <option>Layali Grove</option>
+        <option>Brakkesh</option>
+        <option>Space City</option>
+      </select>
+      <select id="filterRarity">
+        <option value="">All Rarities</option>
+        <option value="red">Red</option>
+        <option value="orange">Orange</option>
+        <option value="purple">Purple</option>
+        <option value="blue">Blue</option>
+        <option value="green">Green</option>
+      </select>
+    </div>
+    <div id="cards"></div>
   </div>
-  <div class="card-list" id="cardList"></div>
 
   <script>
     const keycards = [
-      {
-        name: "East Wing Manager's Office",
-        map: "Zero Dam",
-        rarity: "Red",
-        location: "Upstairs in the East Wing of the Admin building",
-        loot: [
-          "2 briefcases",
-          "1 large weapon crate",
-          "1 drawer",
-          "2 large safes",
-          "1 computer",
-          "Loot on floors, tables, and shelves"
-        ],
-        image: ""
-      },
-      {
-        name: "Substation Tech Room",
-        map: "Zero Dam",
-        rarity: "Orange",
-        location: "Main Substation building, upstairs",
-        loot: [
-          "2 pieces of clothing",
-          "2 servers",
-          "1 large safe",
-          "Loot on desks"
-        ],
-        image: ""
-      },
-      {
-        name: "King's Suite",
-        map: "Layali Grove",
-        rarity: "Red",
-        location: "Top floor of main building in Layali Grove",
-        loot: [
-          "3 large safes",
-          "2 briefcases",
-          "Weapons and clothing"
-        ],
-        image: ""
-      },
-      {
-        name: "Underground Vault Storage",
-        map: "Brakkesh",
-        rarity: "Red",
-        location: "Underground vault beneath the museum",
-        loot: [
-          "Multiple large safes",
-          "Rare containers and server racks"
-        ],
-        image: ""
-      },
-      {
-        name: "CEO Office Reception Room",
-        map: "Space City",
-        rarity: "Red",
-        location: "Top of the middle building in the core area",
-        loot: [
-          "1 large weapon crate",
-          "2 clothing pieces",
-          "2 large safes",
-          "Chance to loot Heart of Africa"
-        ],
-        image: ""
-      }
-      // Add more keycards here
+      // Zero Dam
+      { name: "East Wing Manager's Office", map: "Zero Dam", rarity: "red" },
+      { name: "Substation Tech Room", map: "Zero Dam", rarity: "orange" },
+      { name: "West Wing Control Room", map: "Zero Dam", rarity: "purple" },
+      { name: "West Wing Monitoring Room", map: "Zero Dam", rarity: "purple" },
+      { name: "Equipment Collection Room", map: "Zero Dam", rarity: "blue" },
+      { name: "Barracks Storage Room", map: "Zero Dam", rarity: "blue" },
+      { name: "Ticket Office", map: "Zero Dam", rarity: "green" },
+      { name: "Cement Plant - Dormitory 201", map: "Zero Dam", rarity: "green" },
+      { name: "Central VIP Room", map: "Zero Dam", rarity: "orange" },
+      { name: "Cement Plant Office", map: "Zero Dam", rarity: "blue" },
+      { name: "West Wing Infirmary", map: "Zero Dam", rarity: "purple" },
+      { name: "Substation Dormitory", map: "Zero Dam", rarity: "green" },
+      // Layali Grove
+      { name: "King's Suite", map: "Layali Grove", rarity: "red" },
+      { name: "Radar Station UAV Platform", map: "Layali Grove", rarity: "orange" },
+      { name: "Prince's Suite", map: "Layali Grove", rarity: "orange" },
+      { name: "Radar Station Data Center", map: "Layali Grove", rarity: "purple" },
+      { name: "Lab Building Archive Room", map: "Layali Grove", rarity: "blue" },
+      { name: "Spades Room", map: "Layali Grove", rarity: "blue" },
+      { name: "General's Room", map: "Layali Grove", rarity: "red" },
+      { name: "Radar Station Control Room", map: "Layali Grove", rarity: "purple" },
+      { name: "Lab Building Office", map: "Layali Grove", rarity: "blue" },
+      { name: "Diamonds Room", map: "Layali Grove", rarity: "blue" },
+      { name: "Town Diner", map: "Layali Grove", rarity: "green" },
+      { name: "Radar Station Conference Room", map: "Layali Grove", rarity: "purple" },
+      { name: "Cargo Plane Conference Room", map: "Layali Grove", rarity: "purple" },
+      { name: "Checkpoint Storeroom", map: "Layali Grove", rarity: "green" },
+      { name: "Radar Station Side Entrance Keycard", map: "Layali Grove", rarity: "green" },
+      { name: "Farm Admin Room", map: "Layali Grove", rarity: "green" },
+      { name: "Small Train Station Ticket Office", map: "Layali Grove", rarity: "green" },
+      // Brakkesh
+      { name: "Underground Vault Storage", map: "Brakkesh", rarity: "red" },
+      { name: "Hotel Dining Room", map: "Brakkesh", rarity: "orange" },
+      { name: "Museum Exhibition Suite", map: "Brakkesh", rarity: "orange" },
+      { name: "Old Bath VIP Room", map: "Brakkesh", rarity: "purple" },
+      { name: "CEO Conference Room", map: "Brakkesh", rarity: "red" },
+      { name: "Interrogation Room 1", map: "Brakkesh", rarity: "orange" },
+      { name: "Medical Conference Room", map: "Brakkesh", rarity: "purple" },
+      { name: "Relink Implant Surgery Room", map: "Brakkesh", rarity: "orange" },
+      { name: "Biological Data Server Room", map: "Brakkesh", rarity: "orange" },
+      { name: "New Tower of Babel Power Access Card", map: "Brakkesh", rarity: "red" },
+      { name: "Museum Abandoned Exhibition Hall", map: "Brakkesh", rarity: "purple" },
+      { name: "Outpatient Room", map: "Brakkesh", rarity: "purple" },
+      { name: "Museum Surveillance Room", map: "Brakkesh", rarity: "purple" },
+      { name: "Old Bath Diner", map: "Brakkesh", rarity: "green" },
+      { name: "Ocean Monitoring Hall", map: "Brakkesh", rarity: "purple" },
+      { name: "East Town Residential Bedroom", map: "Brakkesh", rarity: "green" },
+      { name: "Hotel Staff Break Room", map: "Brakkesh", rarity: "green" },
+      { name: "West Town Residential Bedroom", map: "Brakkesh", rarity: "green" },
+      // Space City
+      { name: "CEO Office Reception Room", map: "Space City", rarity: "red" },
+      { name: "Black Chamber Server Room", map: "Space City", rarity: "red" },
+      { name: "Test Range Core", map: "Space City", rarity: "orange" },
+      { name: "Eastern Suspension Bridge", map: "Space City", rarity: "purple" },
+      { name: "Test Range Data Center", map: "Space City", rarity: "orange" },
+      { name: "Assembly Workshop 2F Lab", map: "Space City", rarity: "orange" },
+      { name: "West Gate", map: "Space City", rarity: "purple" },
+      { name: "Employee Passage", map: "Space City", rarity: "purple" },
+      { name: "No.3 Dormitory Back Room", map: "Space City", rarity: "green" },
+      { name: "Central Command Room 3F", map: "Space City", rarity: "red" },
+      { name: "Test Range Glass Room", map: "Space City", rarity: "orange" },
+      { name: "Buoyancy Lab Infirmary", map: "Space City", rarity: "purple" }
     ];
 
-    const cardList = document.getElementById("cardList");
-    const searchInput = document.getElementById("search");
-    const mapFilter = document.getElementById("mapFilter");
-    const rarityFilter = document.getElementById("rarityFilter");
+    const search = document.getElementById("search");
+    const filterMap = document.getElementById("filterMap");
+    const filterRarity = document.getElementById("filterRarity");
+    const cardsContainer = document.getElementById("cards");
 
     function renderCards() {
-      const search = searchInput.value.toLowerCase();
-      const map = mapFilter.value;
-      const rarity = rarityFilter.value;
+      cardsContainer.innerHTML = "";
+      const q = search.value.toLowerCase();
+      const map = filterMap.value;
+      const rarity = filterRarity.value;
 
-      cardList.innerHTML = "";
-      keycards.forEach(card => {
+      keycards.forEach((card, index) => {
         if (
+          (q && !card.name.toLowerCase().includes(q)) ||
           (map && card.map !== map) ||
-          (rarity && card.rarity !== rarity) ||
-          (!card.name.toLowerCase().includes(search))
+          (rarity && card.rarity !== rarity)
         ) return;
 
-        const div = document.createElement("div");
-        div.className = "card";
-        div.innerHTML = `
-          <h3>${card.name}<span class="rarity rarity-${card.rarity}">${card.rarity}</span></h3>
-          <p><strong>Map:</strong> ${card.map}</p>
-          <div class="details">
-            <p><strong>Location:</strong> ${card.location}</p>
-            <p><strong>Loot:</strong></p>
-            <ul>${card.loot.map(i => `<li>${i}</li>`).join("")}</ul>
-            ${card.image ? `<img src="${card.image}" alt="${card.name}" />` : ""}
+        const cardDiv = document.createElement("div");
+        cardDiv.className = "card";
+        cardDiv.innerHTML = `
+          <div class="card-header">
+            <span class="card-title">${card.name}</span>
+            <span class="rarity ${card.rarity}">${card.rarity}</span>
+          </div>
+          <div class="card-details">
+            <p><strong>Map:</strong> ${card.map}</p>
+            <p><strong>Loot Info:</strong> Details coming soon...</p>
           </div>
         `;
-        div.addEventListener("click", () => {
-          div.classList.toggle("active");
+
+        cardDiv.querySelector(".card-header").addEventListener("click", () => {
+          document.querySelectorAll(".card").forEach(c => {
+            if (c !== cardDiv) c.classList.remove("open");
+          });
+          cardDiv.classList.toggle("open");
         });
-        cardList.appendChild(div);
+
+        cardsContainer.appendChild(cardDiv);
       });
     }
 
-    searchInput.addEventListener("input", renderCards);
-    mapFilter.addEventListener("change", renderCards);
-    rarityFilter.addEventListener("change", renderCards);
+    search.addEventListener("input", renderCards);
+    filterMap.addEventListener("change", renderCards);
+    filterRarity.addEventListener("change", renderCards);
 
     renderCards();
   </script>
