@@ -92,6 +92,11 @@
       border-radius: 4px;
       display: block;
     }
+    .image-error {
+      color: #dc2626;
+      font-style: italic;
+      margin-top: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -716,7 +721,7 @@
         return matchesSearch && matchesMap && matchesRarity;
       });
 
-      // Sort by rarity (rarer first), then by name alphabetically
+      // Sort by rarity (rar rarer first), then by name alphabetically
       filtered.sort((a, b) => {
         if (rarityOrder[a.rarity] !== rarityOrder[b.rarity]) {
           return rarityOrder[a.rarity] - rarityOrder[b.rarity];
@@ -735,7 +740,11 @@
         const cardEl = document.createElement("div");
         cardEl.className = "card";
 
-        const imageHtml = card.image ? `<img src="${card.image}" alt="${card.name} location" />` : '';
+        // Use a fallback message if the image fails to load
+        const imageHtml = card.image
+          ? `<img src="${card.image}" alt="${card.name} location" onerror="this.style.display='none'; this.nextSibling.style.display='block';" />
+             <div class="image-error" style="display: none;">Image not available</div>`
+          : '<div class="image-error">No image available</div>';
 
         cardEl.innerHTML = `
           <div class="card-header">
@@ -747,6 +756,7 @@
             <br /><br />
             <strong>Loot Info:</strong>
             <pre>${card.loot}</pre>
+            <strong>Location Image:</strong><br />
             ${imageHtml}
           </div>
         `;
