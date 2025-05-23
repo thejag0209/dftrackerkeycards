@@ -80,7 +80,8 @@
       padding: 1rem;
       background: #fef2f2;
       border-top: 1px solid #fca5a5;
-      white-space: pre-wrap;
+      text-align: center; /* Center all text in card-details */
+      font-family: Arial, sans-serif; /* Ensure consistent font */
     }
     .card.open .card-details {
       display: block;
@@ -91,11 +92,18 @@
       margin-top: 1rem;
       border-radius: 4px;
       display: block;
+      margin-left: auto;
+      margin-right: auto; /* Center the image */
     }
     .image-error {
       color: #dc2626;
       font-style: italic;
       margin-top: 1rem;
+    }
+    .loot-info {
+      white-space: pre-line; /* Preserve line breaks but allow wrapping */
+      text-align: center; /* Ensure loot info is centered */
+      font-family: Arial, sans-serif; /* Match the font */
     }
   </style>
 </head>
@@ -151,27 +159,27 @@
         map: "Zero Dam",
         rarity: "red",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Small Drawer\n" +
-          "Notes: Red keycard access to East Wing rooms."
+          "Containers: 2\n" +
+          "Container Types: Safe, Small Drawer\n" +
+          "Notes: Red keycard access to East Wing rooms with valuable documents."
       },
       {
         name: "Substation Tech Room",
         map: "Zero Dam",
         rarity: "orange",
         loot:
-          "Containers: 2\n" +
+          "Containers: 3\n" +
           "Container Types: Lockers, Cabinets\n" +
-          "Notes: Access to substation tech equipment."
+          "Notes: Access to substation tech equipment and tools."
       },
       {
         name: "West Wing Control Room",
         map: "Zero Dam",
         rarity: "purple",
         loot:
-          "Containers: 3\n" +
+          "Containers: 2\n" +
           "Container Types: Lockers, Filing Cabinets\n" +
-          "Notes: Controls for west wing systems."
+          "Notes: Controls for west wing systems, may contain security logs."
       },
       {
         name: "West Wing Monitoring Room",
@@ -180,25 +188,25 @@
         loot:
           "Containers: 2\n" +
           "Container Types: Lockers\n" +
-          "Notes: Surveillance and monitoring equipment."
+          "Notes: Surveillance equipment with potential intel."
       },
       {
         name: "Equipment Collection Room",
         map: "Zero Dam",
         rarity: "blue",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Miscellaneous equipment storage."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Toolbox\n" +
+          "Notes: Miscellaneous equipment storage, may contain utility items."
       },
       {
         name: "Barracks Storage Room",
         map: "Zero Dam",
         rarity: "blue",
         loot:
-          "Containers: 2\n" +
+          "Containers: 3\n" +
           "Container Types: Lockers, Cabinets\n" +
-          "Notes: Storage for barracks supplies."
+          "Notes: Storage for barracks supplies, including personal items."
       },
       {
         name: "Ticket Office",
@@ -207,7 +215,7 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Small Drawer\n" +
-          "Notes: Ticketing supplies and documents."
+          "Notes: Ticketing supplies and minor documents."
       },
       {
         name: "Cement Plant - Dormitory 201",
@@ -216,16 +224,16 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Dormitory personal storage."
+          "Notes: Dormitory personal storage, may contain personal effects."
       },
       {
         name: "Central VIP Room",
         map: "Zero Dam",
         rarity: "orange",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Safe\n" +
-          "Notes: VIP access with valuable items."
+          "Containers: 2\n" +
+          "Container Types: Safe, Small Drawer\n" +
+          "Notes: VIP access with valuable items and documents."
       },
       {
         name: "Cement Plant Office",
@@ -233,7 +241,7 @@
         rarity: "blue",
         loot:
           "Containers: 2\n" +
-          "Container Types: Filing Cabinets\n" +
+          "Container Types: Filing Cabinets, Small Drawer\n" +
           "Notes: Office documents and materials."
       },
       {
@@ -241,8 +249,8 @@
         map: "Zero Dam",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Medical Cabinet\n" +
+          "Containers: 2\n" +
+          "Container Types: Medical Cabinet, Locker\n" +
           "Notes: Medical supplies and records."
       },
       {
@@ -252,7 +260,7 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Dormitory storage."
+          "Notes: Dormitory storage with personal items."
       },
 
       // Layali Grove
@@ -261,9 +269,9 @@
         map: "Layali Grove",
         rarity: "red",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Safe\n" +
-          "Notes: High-value valuables and documents.",
+          "Containers: 3\n" +
+          "Container Types: Safe, Locker, Small Drawer\n" +
+          "Notes: High-value valuables, documents, and rare items.",
         image: keycardImageMap["King's Suite"]
       },
       {
@@ -273,7 +281,7 @@
         loot:
           "Containers: 2\n" +
           "Container Types: Lockers, Filing Cabinets\n" +
-          "Notes: UAV controls and data.",
+          "Notes: UAV controls, data logs, and tech components.",
         image: keycardImageMap["Radar Station UAV Platform"]
       },
       {
@@ -281,9 +289,9 @@
         map: "Layali Grove",
         rarity: "orange",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Safe\n" +
-          "Notes: Important documents and valuables.",
+          "Containers: 2\n" +
+          "Container Types: Safe, Small Drawer\n" +
+          "Notes: Important documents and personal valuables.",
         image: keycardImageMap["Prince's Suite"]
       },
       {
@@ -292,8 +300,8 @@
         rarity: "purple",
         loot:
           "Containers: 3\n" +
-          "Container Types: Lockers, Cabinets\n" +
-          "Notes: Data storage and servers.",
+          "Container Types: Lockers, Cabinets, Server Rack\n" +
+          "Notes: Data storage, servers, and sensitive intel.",
         image: keycardImageMap["Radar Station Data Center"]
       },
       {
@@ -302,8 +310,8 @@
         rarity: "blue",
         loot:
           "Containers: 2\n" +
-          "Container Types: Filing Cabinets\n" +
-          "Notes: Archived documents and records.",
+          "Container Types: Filing Cabinets, Small Drawer\n" +
+          "Notes: Archived documents and research notes.",
         image: keycardImageMap["Lab Building Archive Room"]
       },
       {
@@ -311,9 +319,9 @@
         map: "Layali Grove",
         rarity: "blue",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Locker\n" +
-          "Notes: Secure storage.",
+          "Containers: 2\n" +
+          "Container Types: Locker, Small Drawer\n" +
+          "Notes: Secure storage with miscellaneous items.",
         image: keycardImageMap["Spades Room"]
       },
       {
@@ -321,9 +329,9 @@
         map: "Layali Grove",
         rarity: "red",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Safe\n" +
-          "Notes: High rank officer valuables.",
+          "Containers: 3\n" +
+          "Container Types: Safe, Locker, Filing Cabinet\n" +
+          "Notes: High-rank officer valuables, including rare weapons and classified documents.",
         image: keycardImageMap["General's Room"]
       },
       {
@@ -332,8 +340,8 @@
         rarity: "purple",
         loot:
           "Containers: 2\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Control room access.",
+          "Container Types: Lockers, Control Panel\n" +
+          "Notes: Control room access with operational data.",
         image: keycardImageMap["Radar Station Control Room"]
       },
       {
@@ -342,8 +350,8 @@
         rarity: "blue",
         loot:
           "Containers: 2\n" +
-          "Container Types: Filing Cabinets\n" +
-          "Notes: Office documents.",
+          "Container Types: Filing Cabinets, Small Drawer\n" +
+          "Notes: Office documents and research materials.",
         image: keycardImageMap["Lab Building Office"]
       },
       {
@@ -351,9 +359,9 @@
         map: "Layali Grove",
         rarity: "blue",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Safe\n" +
-          "Notes: Secure valuables.",
+          "Containers: 2\n" +
+          "Container Types: Safe, Locker\n" +
+          "Notes: Secure valuables and collectibles.",
         image: keycardImageMap["Diamonds Room"]
       },
       {
@@ -363,7 +371,7 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Everyday supplies.",
+          "Notes: Everyday supplies and minor items.",
         image: keycardImageMap["Town Diner"]
       },
       {
@@ -371,9 +379,9 @@
         map: "Layali Grove",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Meeting room storage.",
+          "Containers: 2\n" +
+          "Container Types: Lockers, Filing Cabinet\n" +
+          "Notes: Meeting room storage with operational documents.",
         image: keycardImageMap["Radar Station Conference Room"]
       },
       {
@@ -381,9 +389,9 @@
         map: "Layali Grove",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Filing Cabinet\n" +
-          "Notes: Conference equipment.",
+          "Containers: 2\n" +
+          "Container Types: Filing Cabinet, Briefcase\n" +
+          "Notes: Conference equipment and travel documents.",
         image: keycardImageMap["Cargo Plane Conference Room"]
       },
       {
@@ -393,7 +401,7 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Security supplies.",
+          "Notes: Security supplies and basic tools.",
         image: keycardImageMap["Checkpoint Storeroom"]
       },
       {
@@ -402,7 +410,7 @@
         rarity: "green",
         loot:
           "Containers: 0\n" +
-          "Notes: Side entrance access.",
+          "Notes: Grants side entrance access, no loot.",
         image: keycardImageMap["Radar Station Side Entrance Keycard"]
       },
       {
@@ -412,7 +420,7 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Administrative supplies.",
+          "Notes: Administrative supplies and records.",
         image: keycardImageMap["Farm Admin Room"]
       },
       {
@@ -422,7 +430,7 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Small Drawer\n" +
-          "Notes: Ticketing supplies.",
+          "Notes: Ticketing supplies and minor documents.",
         image: keycardImageMap["Small Train Station Ticket Office"]
       },
 
@@ -432,18 +440,18 @@
         map: "Brakkesh",
         rarity: "red",
         loot:
-          "Containers: 2\n" +
-          "Container Types: Safes\n" +
-          "Notes: Vault storage of valuables."
+          "Containers: 3\n" +
+          "Container Types: Safes, Lockers\n" +
+          "Notes: Vault storage with high-value items and rare collectibles."
       },
       {
         name: "Hotel Dining Room",
         map: "Brakkesh",
         rarity: "orange",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Staff personal items."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Cabinets\n" +
+          "Notes: Staff personal items and dining supplies."
       },
       {
         name: "Museum Exhibition Suite",
@@ -451,43 +459,43 @@
         rarity: "orange",
         loot:
           "Containers: 2\n" +
-          "Container Types: Cabinets\n" +
-          "Notes: Exhibition equipment storage."
+          "Container Types: Cabinets, Display Case\n" +
+          "Notes: Exhibition equipment and artifacts."
       },
       {
         name: "Old Bath VIP Room",
         map: "Brakkesh",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Safe\n" +
-          "Notes: VIP valuables."
+          "Containers: 2\n" +
+          "Container Types: Safe, Small Drawer\n" +
+          "Notes: VIP valuables and personal items."
       },
       {
         name: "CEO Conference Room",
         map: "Brakkesh",
         rarity: "red",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Safe\n" +
-          "Notes: CEO level access."
+          "Containers: 2\n" +
+          "Container Types: Safe, Filing Cabinet\n" +
+          "Notes: CEO-level access with sensitive documents."
       },
       {
         name: "Interrogation Room 1",
         map: "Brakkesh",
         rarity: "orange",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Interrogation equipment."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Small Drawer\n" +
+          "Notes: Interrogation equipment and logs."
       },
       {
         name: "Medical Conference Room",
         map: "Brakkesh",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Medical Cabinet\n" +
+          "Containers: 2\n" +
+          "Container Types: Medical Cabinet, Filing Cabinet\n" +
           "Notes: Medical records and supplies."
       },
       {
@@ -495,18 +503,18 @@
         map: "Brakkesh",
         rarity: "orange",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Surgery room access."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Medical Cabinet\n" +
+          "Notes: Surgery room access with medical tools."
       },
       {
         name: "Biological Data Server Room",
         map: "Brakkesh",
         rarity: "orange",
         loot:
-          "Containers: 2\n" +
-          "Container Types: Cabinets, Lockers\n" +
-          "Notes: Sensitive data storage."
+          "Containers: 3\n" +
+          "Container Types: Cabinets, Lockers, Server Rack\n" +
+          "Notes: Sensitive biological data storage."
       },
       {
         name: "New Tower of Babel Power Access Card",
@@ -514,34 +522,34 @@
         rarity: "red",
         loot:
           "Containers: 0\n" +
-          "Notes: Power access control."
+          "Notes: Grants power access control, no loot."
       },
       {
         name: "Museum Abandoned Exhibition Hall",
         map: "Brakkesh",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Abandoned storage."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Display Case\n" +
+          "Notes: Abandoned storage with old artifacts."
       },
       {
         name: "Outpatient Room",
         map: "Brakkesh",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Medical Cabinet\n" +
-          "Notes: Medical supplies."
+          "Containers: 2\n" +
+          "Container Types: Medical Cabinet, Small Drawer\n" +
+          "Notes: Medical supplies for outpatient care."
       },
       {
         name: "Museum Surveillance Room",
         map: "Brakkesh",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Surveillance equipment."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Filing Cabinet\n" +
+          "Notes: Surveillance equipment and logs."
       },
       {
         name: "Old Bath Diner",
@@ -550,16 +558,16 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Dining supplies."
+          "Notes: Dining supplies and minor items."
       },
       {
         name: "Ocean Monitoring Hall",
         map: "Brakkesh",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Monitoring equipment."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Control Panel\n" +
+          "Notes: Monitoring equipment and data logs."
       },
       {
         name: "East Town Residential Bedroom",
@@ -568,7 +576,7 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Residential storage."
+          "Notes: Residential storage with personal effects."
       },
       {
         name: "Hotel Staff Break Room",
@@ -577,7 +585,7 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Staff personal items."
+          "Notes: Staff personal items and break room supplies."
       },
       {
         name: "West Town Residential Bedroom",
@@ -586,7 +594,7 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Residential storage."
+          "Notes: Residential storage with personal effects."
       },
 
       // Space City
@@ -595,72 +603,72 @@
         map: "Space City",
         rarity: "red",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Safe\n" +
-          "Notes: CEO level valuables."
+          "Containers: 2\n" +
+          "Container Types: Safe, Filing Cabinet\n" +
+          "Notes: CEO-level valuables and sensitive documents."
       },
       {
         name: "Black Chamber Server Room",
         map: "Space City",
         rarity: "red",
         loot:
-          "Containers: 2\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Server equipment."
+          "Containers: 3\n" +
+          "Container Types: Lockers, Server Rack\n" +
+          "Notes: Server equipment with classified data."
       },
       {
         name: "Test Range Core",
         map: "Space City",
         rarity: "orange",
         loot:
-          "Containers: 2\n" +
-          "Container Types: Lockers, Cabinets\n" +
-          "Notes: Test range controls."
+          "Containers: 3\n" +
+          "Container Types: Lockers, Cabinets, Toolbox\n" +
+          "Notes: Test range controls and experimental tools."
       },
       {
         name: "Eastern Suspension Bridge",
         map: "Space City",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Bridge control room."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Control Panel\n" +
+          "Notes: Bridge control room with operational logs."
       },
       {
         name: "Test Range Data Center",
         map: "Space City",
         rarity: "orange",
         loot:
-          "Containers: 2\n" +
-          "Container Types: Cabinets, Lockers\n" +
-          "Notes: Data center equipment."
+          "Containers: 3\n" +
+          "Container Types: Cabinets, Lockers, Server Rack\n" +
+          "Notes: Data center equipment with research data."
       },
       {
         name: "Assembly Workshop 2F Lab",
         map: "Space City",
         rarity: "orange",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Lab equipment storage."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Toolbox\n" +
+          "Notes: Lab equipment storage with experimental tools."
       },
       {
         name: "West Gate",
         map: "Space City",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: West gate access."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Small Drawer\n" +
+          "Notes: West gate access with security items."
       },
       {
         name: "Employee Passage",
         map: "Space City",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Staff passage storage."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Briefcase\n" +
+          "Notes: Staff passage storage with personal items."
       },
       {
         name: "No.3 Dormitory Back Room",
@@ -669,34 +677,34 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Dormitory storage."
+          "Notes: Dormitory storage with personal effects."
       },
       {
         name: "Central Command Room 3F",
         map: "Space City",
         rarity: "red",
         loot:
-          "Containers: 2\n" +
-          "Container Types: Safes, Lockers\n" +
-          "Notes: Command center valuables."
+          "Containers: 3\n" +
+          "Container Types: Safes, Lockers, Filing Cabinet\n" +
+          "Notes: Command center valuables and strategic documents."
       },
       {
         name: "Test Range Glass Room",
         map: "Space City",
         rarity: "orange",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Lockers\n" +
-          "Notes: Glass room storage."
+          "Containers: 2\n" +
+          "Container Types: Lockers, Small Drawer\n" +
+          "Notes: Glass room storage with experimental items."
       },
       {
         name: "Buoyancy Lab Infirmary",
         map: "Space City",
         rarity: "purple",
         loot:
-          "Containers: 1\n" +
-          "Container Types: Medical Cabinet\n" +
-          "Notes: Medical supplies."
+          "Containers: 2\n" +
+          "Container Types: Medical Cabinet, Small Drawer\n" +
+          "Notes: Medical supplies for lab personnel."
       }
     ];
 
@@ -755,7 +763,8 @@
             <strong>Map:</strong> ${card.map}
             <br /><br />
             <strong>Loot Info:</strong>
-            <pre>${card.loot}</pre>
+            <div class="loot-info">${card.loot}</div>
+            <br />
             <strong>Location Image:</strong><br />
             ${imageHtml}
           </div>`;
