@@ -85,6 +85,13 @@
     .card.open .card-details {
       display: block;
     }
+    .card-details img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 1rem;
+      border-radius: 4px;
+      display: block;
+    }
   </style>
 </head>
 <body>
@@ -112,6 +119,26 @@
   </div>
 
   <script>
+    const keycardImageMap = {
+      "King's Suite": "https://drive.google.com/uc?export=view&id=1LhO9-J_LKfO5fC7MxK5nByceTqzSA0_3",
+      "Radar Station UAV Platform": "https://drive.google.com/uc?export=view&id=1TuYg3ED4OtvcWkQ9KI-PhJXrYajMe56y",
+      "Prince's Suite": "https://drive.google.com/uc?export=view&id=1gWgqvHuasakBut-dqVGn1PkbGRBb8MS_",
+      "Radar Station Data Center": "https://drive.google.com/uc?export=view&id=1V8PJTLTp5VeWxfgnzUlPBXAloD8tRL2n",
+      "Lab Building Archive Room": "https://drive.google.com/uc?export=view&id=1o_O_dxCfeu8iJY-KySqFV-uPnAwUm3Cc",
+      "Spades Room": "https://drive.google.com/uc?export=view&id=10jEQMjSSrpPV5Og4ZNG0-9Vh6ZhgFxEA",
+      "General's Room": "https://drive.google.com/uc?export=view&id=1-Hh084d63OXdflAXGJZuLbe21MyMeBie",
+      "Radar Station Control Room": "https://drive.google.com/uc?export=view&id=11e0-Y64Pkb1Nxme3hjJ4pgnJB-OUCPJo",
+      "Lab Building Office": "https://drive.google.com/uc?export=view&id=1AyG8J0sdDF_hQoyRa5IyWMzYrSLgI4GP",
+      "Diamonds Room": "https://drive.google.com/uc?export=view&id=1s_FUStU6W-uGRAqx3P1QpY640g-06ym9",
+      "Town Diner": "https://drive.google.com/uc?export=view&id=1Clt4t5SGNExC1m50OSkj-AI9xlG_Om_0",
+      "Radar Station Conference Room": "https://drive.google.com/uc?export=view&id=1xqapB-vykbUIYnfjogCnO5cC9at3xQxj",
+      "Cargo Plane Conference Room": "https://drive.google.com/uc?export=view&id=1A61KgrnP4TrtCE_G41Xd19Fpune1lQOs",
+      "Checkpoint Storeroom": "https://drive.google.com/uc?export=view&id=1QlaNPHOwLN4pqVGz7Y_tOK3zrnqIymTz",
+      "Radar Station Side Entrance Keycard": "https://drive.google.com/uc?export=view&id=1o4F0iB9D7lf_i2gqmcLB_gWSlfr5ekGA",
+      "Farm Admin Room": "https://drive.google.com/uc?export=view&id=1YuFwXKuuR_3wS710vxlj7ytxZFefA-HB",
+      "Small Train Station Ticket Office": "https://drive.google.com/uc?export=view&id=1s4xpN5McDkaDWr6yk5K4lobZ-4EVBn7c"
+    };
+
     const keycards = [
       // Zero Dam
       {
@@ -231,7 +258,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Safe\n" +
-          "Notes: High-value valuables and documents."
+          "Notes: High-value valuables and documents.",
+        image: keycardImageMap["King's Suite"]
       },
       {
         name: "Radar Station UAV Platform",
@@ -240,7 +268,8 @@
         loot:
           "Containers: 2\n" +
           "Container Types: Lockers, Filing Cabinets\n" +
-          "Notes: UAV controls and data."
+          "Notes: UAV controls and data.",
+        image: keycardImageMap["Radar Station UAV Platform"]
       },
       {
         name: "Prince's Suite",
@@ -249,7 +278,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Safe\n" +
-          "Notes: Important documents and valuables."
+          "Notes: Important documents and valuables.",
+        image: keycardImageMap["Prince's Suite"]
       },
       {
         name: "Radar Station Data Center",
@@ -258,7 +288,8 @@
         loot:
           "Containers: 3\n" +
           "Container Types: Lockers, Cabinets\n" +
-          "Notes: Data storage and servers."
+          "Notes: Data storage and servers.",
+        image: keycardImageMap["Radar Station Data Center"]
       },
       {
         name: "Lab Building Archive Room",
@@ -267,7 +298,8 @@
         loot:
           "Containers: 2\n" +
           "Container Types: Filing Cabinets\n" +
-          "Notes: Archived documents and records."
+          "Notes: Archived documents and records.",
+        image: keycardImageMap["Lab Building Archive Room"]
       },
       {
         name: "Spades Room",
@@ -276,7 +308,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Secure storage."
+          "Notes: Secure storage.",
+        image: keycardImageMap["Spades Room"]
       },
       {
         name: "General's Room",
@@ -285,7 +318,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Safe\n" +
-          "Notes: High rank officer valuables."
+          "Notes: High rank officer valuables.",
+        image: keycardImageMap["General's Room"]
       },
       {
         name: "Radar Station Control Room",
@@ -294,7 +328,8 @@
         loot:
           "Containers: 2\n" +
           "Container Types: Lockers\n" +
-          "Notes: Control room access."
+          "Notes: Control room access.",
+        image: keycardImageMap["Radar Station Control Room"]
       },
       {
         name: "Lab Building Office",
@@ -303,7 +338,8 @@
         loot:
           "Containers: 2\n" +
           "Container Types: Filing Cabinets\n" +
-          "Notes: Office documents."
+          "Notes: Office documents.",
+        image: keycardImageMap["Lab Building Office"]
       },
       {
         name: "Diamonds Room",
@@ -312,7 +348,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Safe\n" +
-          "Notes: Secure valuables."
+          "Notes: Secure valuables.",
+        image: keycardImageMap["Diamonds Room"]
       },
       {
         name: "Town Diner",
@@ -321,7 +358,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Everyday supplies."
+          "Notes: Everyday supplies.",
+        image: keycardImageMap["Town Diner"]
       },
       {
         name: "Radar Station Conference Room",
@@ -330,7 +368,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Lockers\n" +
-          "Notes: Meeting room storage."
+          "Notes: Meeting room storage.",
+        image: keycardImageMap["Radar Station Conference Room"]
       },
       {
         name: "Cargo Plane Conference Room",
@@ -339,7 +378,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Filing Cabinet\n" +
-          "Notes: Conference equipment."
+          "Notes: Conference equipment.",
+        image: keycardImageMap["Cargo Plane Conference Room"]
       },
       {
         name: "Checkpoint Storeroom",
@@ -348,7 +388,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Security supplies."
+          "Notes: Security supplies.",
+        image: keycardImageMap["Checkpoint Storeroom"]
       },
       {
         name: "Radar Station Side Entrance Keycard",
@@ -356,7 +397,8 @@
         rarity: "green",
         loot:
           "Containers: 0\n" +
-          "Notes: Side entrance access."
+          "Notes: Side entrance access.",
+        image: keycardImageMap["Radar Station Side Entrance Keycard"]
       },
       {
         name: "Farm Admin Room",
@@ -365,7 +407,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Locker\n" +
-          "Notes: Administrative supplies."
+          "Notes: Administrative supplies.",
+        image: keycardImageMap["Farm Admin Room"]
       },
       {
         name: "Small Train Station Ticket Office",
@@ -374,7 +417,8 @@
         loot:
           "Containers: 1\n" +
           "Container Types: Small Drawer\n" +
-          "Notes: Ticketing supplies."
+          "Notes: Ticketing supplies.",
+        image: keycardImageMap["Small Train Station Ticket Office"]
       },
 
       // Brakkesh
@@ -691,6 +735,8 @@
         const cardEl = document.createElement("div");
         cardEl.className = "card";
 
+        const imageHtml = card.image ? `<img src="${card.image}" alt="${card.name} location" />` : '';
+
         cardEl.innerHTML = `
           <div class="card-header">
             <div class="card-title">${card.name}</div>
@@ -701,6 +747,7 @@
             <br /><br />
             <strong>Loot Info:</strong>
             <pre>${card.loot}</pre>
+            ${imageHtml}
           </div>
         `;
 
