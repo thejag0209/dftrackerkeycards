@@ -125,23 +125,23 @@
 
   <script>
     const keycardImageMap = {
-      "King's Suite": "https://drive.google.com/uc?export=view&id=1LhO9-J_LKfO5fC7MxK5nByceTqzSA0_3",
-      "Radar Station UAV Platform": "https://drive.google.com/uc?export=view&id=1TuYg3ED4OtvcWkQ9KI-PhJXrYajMe56y",
-      "Prince's Suite": "https://drive.google.com/uc?export=view&id=1gWgqvHuasakBut-dqVGn1PkbGRBb8MS_",
-      "Radar Station Data Center": "https://drive.google.com/uc?export=view&id=1V8PJTLTp5VeWxfgnzUlPBXAloD8tRL2n",
-      "Lab Building Archive Room": "https://drive.google.com/uc?export=view&id=1o_O_dxCfeu8iJY-KySqFV-uPnAwUm3Cc",
-      "Spades Room": "https://drive.google.com/uc?export=view&id=10jEQMjSSrpPV5Og4ZNG0-9Vh6ZhgFxEA",
-      "General's Room": "https://drive.google.com/uc?export=view&id=1-Hh084d63OXdflAXGJZuLbe21MyMeBie",
-      "Radar Station Control Room": "https://drive.google.com/uc?export=view&id=11e0-Y64Pkb1Nxme3hjJ4pgnJB-OUCPJo",
-      "Lab Building Office": "https://drive.google.com/uc?export=view&id=1AyG8J0sdDF_hQoyRa5IyWMzYrSLgI4GP",
-      "Diamonds Room": "https://drive.google.com/uc?export=view&id=1s_FUStU6W-uGRAqx3P1QpY640g-06ym9",
-      "Town Diner": "https://drive.google.com/uc?export=view&id=1Clt4t5SGNExC1m50OSkj-AI9xlG_Om_0",
-      "Radar Station Conference Room": "https://drive.google.com/uc?export=view&id=1xqapB-vykbUIYnfjogCnO5cC9at3xQxj",
-      "Cargo Plane Conference Room": "https://drive.google.com/uc?export=view&id=1A61KgrnP4TrtCE_G41Xd19Fpune1lQOs",
-      "Checkpoint Storeroom": "https://drive.google.com/uc?export=view&id=1QlaNPHOwLN4pqVGz7Y_tOK3zrnqIymTz",
-      "Radar Station Side Entrance Keycard": "https://drive.google.com/uc?export=view&id=1o4F0iB9D7lf_i2gqmcLB_gWSlfr5ekGA",
-      "Farm Admin Room": "https://drive.google.com/uc?export=view&id=1YuFwXKuuR_3wS710vxlj7ytxZFefA-HB",
-      "Small Train Station Ticket Office": "https://drive.google.com/uc?export=view&id=1s4xpN5McDkaDWr6yk5K4lobZ-4EVBn7c"
+      "King's Suite": "https://i.imgur.com/lihDrx8.png",
+      "Radar Station UAV Platform": "https://i.imgur.com/ciRVhP7.png",
+      "Prince's Suite": "https://i.imgur.com/WfeplkA.png",
+      "Radar Station Data Center": "https://i.imgur.com/6z1wYoD.png",
+      "Lab Building Archive Room": "https://i.imgur.com/rnNjcdA.png",
+      "Spades Room": "https://i.imgur.com/fNsbaKi.png",
+      "General's Room": "https://i.imgur.com/zvuxaDh.png",
+      "Radar Station Control Room": "https://i.imgur.com/uJwyZTV.png",
+      "Lab Building Office": "https://i.imgur.com/XK6NGJN.png",
+      "Diamonds Room": "https://i.imgur.com/kqljeos.png",
+      "Town Diner": "https://i.imgur.com/D7EkT8M.png",
+      "Radar Station Conference Room": "https://i.imgur.com/ZIdMbhs.png",
+      "Cargo Plane Conference Room": "https://i.imgur.com/QeVjCSq.png",
+      "Checkpoint Storeroom": "https://i.imgur.com/boaWGt6.png",
+      "Radar Station Side Entrance Keycard": "https://i.imgur.com/02KofSE.png",
+      "Farm Admin Room": "https://i.imgur.com/6Dg67aO.png",
+      "Small Train Station Ticket Office": "https://i.imgur.com/wXPoGJ0.png"
     };
 
     const keycards = [
@@ -721,7 +721,7 @@
         return matchesSearch && matchesMap && matchesRarity;
       });
 
-      // Sort by rarity (rar rarer first), then by name alphabetically
+      // Sort by rarity (rarer first), then by name alphabetically
       filtered.sort((a, b) => {
         if (rarityOrder[a.rarity] !== rarityOrder[b.rarity]) {
           return rarityOrder[a.rarity] - rarityOrder[b.rarity];
@@ -744,10 +744,10 @@
         const imageHtml = card.image
           ? `<img src="${card.image}" alt="${card.name} location" onerror="this.style.display='none'; this.nextSibling.style.display='block';" />
              <div class="image-error" style="display: none;">Image not available</div>`
-          : '<div class="image-error">No image available</div>';
+          : `<div class="image-error">No image available</div>`;
 
-        cardEl.innerHTML = `
-          <div class="card-header">
+        cardEl.innerHTML = 
+          `<div class="card-header">
             <div class="card-title">${card.name}</div>
             <div class="rarity ${card.rarity}">${card.rarity}</div>
           </div>
@@ -758,8 +758,7 @@
             <pre>${card.loot}</pre>
             <strong>Location Image:</strong><br />
             ${imageHtml}
-          </div>
-        `;
+          </div>`;
 
         cardEl.addEventListener("click", () => {
           cardEl.classList.toggle("open");
